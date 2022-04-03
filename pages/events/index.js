@@ -1,8 +1,10 @@
-import React from 'react'
+import Layout from "../../components/Layout"
 
 function EventsPage() {
   return (
-    <div>EventsPage</div>
+    <Layout>
+        <h1>My Event</h1>
+    </Layout>
   )
 }
 
