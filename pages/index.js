@@ -5,7 +5,6 @@ import EventItem from '@/components/EventItem'
 
 
 export default function Home({ events }) {
-  console.log(events)
   return (
     <div >
       <Layout >
@@ -31,7 +30,6 @@ export async function getStaticProps() {
   const res = await fetch(`${API_URL}/api/events`)
   const events = await res.json()
 
-  console.log(events)
 
     return {
       props: {events: events.events.slice(0, 3)},

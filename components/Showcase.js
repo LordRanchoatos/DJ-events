@@ -1,7 +1,5 @@
 import styles from '@/styles/Showcase.module.css'
 
-import React from 'react'
-
 export default function Showcase() {
   return (
     <div className={styles.showcase}>
