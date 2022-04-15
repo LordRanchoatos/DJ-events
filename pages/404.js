@@ -9,7 +9,7 @@ export default function NotfoundPage() {
         <div className={styles.error}>
             <h1><FaExclamationTriangle /> 404</h1>
             <h4>Sorry, there is nothing here</h4>
-            <Link href="/">Go Bacccck Home</Link>
+            <Link href="/">Go Back Home</Link>
         </div>
     </Layout>
   )
