@@ -1,5 +1,6 @@
 import qs from 'qs'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Layout from '@/components/Layout'
 import { API_URL } from '@/config/index'
 import EventItem from '@/components/EventItem'
@@ -7,11 +8,12 @@ import EventItem from '@/components/EventItem'
 
 
 export default function SearchPage({ events }) {
-    const router = useRouter
+    const router = useRouter()
   return (
     <div >
       <Layout title='Search Results'>
-        {/* <h1>Search Results for {router.query.term} </h1> */}
+        <Link href='/events'>Go Back</Link>
+        <h1>Search Results for {router.query.term} </h1>
         {events.length === 0 && <h3>No Events Available</h3>}
 
 
@@ -19,12 +21,11 @@ export default function SearchPage({ events }) {
           <EventItem key={evt.id} evt={evt} />
         ))}
 
-        {events.lengthh > 0 && (
+        {events.length > 0 && (
           <Link href='/events'>
             <a className='btn-secondary'>View All Events</a>
           </Link>
         )}
-        <h1>filtered</h1>
       </Layout> 
     </div>
   )
@@ -32,26 +33,20 @@ export default function SearchPage({ events }) {
 
 export async function getServerSideProps({ query: 
     {term}}) {
+      console.log(`search term: ${term}` )
         const query = qs.stringify({
-            filter: {
-                name: {
-                  $contains:term
-                },
-                address: {
-                  $contains:term
-                },
-                performer: {
-                  $contains:term
-                },
-                venue: {
-                  $contains:term
-                },
-            }
+          filters: {
+            name: {
+              $contains: term,
+            },
+          },
+        }, {
+          encodeValuesOnly: true,
         })
-  const res = await fetch(`${API_URL}/events?${query}`)
-  const events = await res.json()
+        console.log(query)
+    const res = await fetch(`${API_URL}/events?${query}&populate=*`)
+    const events = await res.json()
 
-  console.log(events)
 
     return {
       props: {events: events.data},
