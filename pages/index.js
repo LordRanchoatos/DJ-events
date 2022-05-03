@@ -31,10 +31,10 @@ export default function Home({ events }) {
 //http://localhost:1337/api/events
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/events?populate=*`)
+  const res = await fetch(`${API_URL}/events`)
   const events = await res.json()
 
-  //console.log(events.data.length)
+  console.log(events)
 
 
     return {
